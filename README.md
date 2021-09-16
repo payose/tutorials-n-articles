@@ -22,3 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+project on codesandbox
+https://codesandbox.io/s/peaceful-yalow-ibth7?file=/src/components/bookCard.vue
