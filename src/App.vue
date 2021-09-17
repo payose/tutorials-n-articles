@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h2>infinite screll</h2>
     <input v-model="search" placeholder="search for book by title or arthur" />
     <div v-for="result in searchResults" :key="result.title">
       <bookCard :book="result" :search="search" />
