@@ -25,6 +25,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 project on codesandbox
-https://codesandbox.io/s/peaceful-yalow-ibth7?file=/src/components/bookCard.vue
-
-checking to see if i have been restored as the authour
+https://codesandbox.io/s/late-wildflower-xtr0n?file=/src/components/Card.vue:0-1061

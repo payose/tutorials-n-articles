@@ -1,45 +1,51 @@
 <template>
   <div id="app">
-    <h2>infinite screll</h2>
-    <input v-model="search" placeholder="search for book by title or arthur" />
-    <div v-for="result in searchResults" :key="result.title">
-      <bookCard :book="result" :search="search" />
+    <h2>Random questions and their answers</h2>
+    <div v-for="(question, index) in questions" :key="index">
+      <Card :question="question" />
     </div>
   </div>
 </template>
 
 <script>
-import bookCard from "./components/bookCard";
+import axios from "axios";
+import Card from "./components/Card";
 
 export default {
   name: "App",
   components: {
-    bookCard,
+    Card,
   },
   data() {
     return {
-      search: "",
-      books: [
-        { title: "A time to kill", author: "Josh Grisham" },
-        { title: "Greenlights", author: "Matthew McConaughey" },
-        { title: "The Da Vinci code", author: "Dan Brown" },
-        { title: "Born a crime", author: "Trevor Noah" },
-        { title: "The artist way", author: "Julia Cameron" },
-        { title: "The hate you give", author: "Angie Thomas" },
-        { title: "Billy Summers", author: "Stephen King" },
-        { title: "The Kite Runner", author: "Khaled Hosseini" },
-      ],
+      questions: [],
     };
   },
 
-  computed: {
-    searchResults() {
-      return this.books.filter(
-        (books) =>
-          books.title.toLowerCase().includes(this.search.toLowerCase()) ||
-          books.author.toLowerCase().includes(this.search.toLowerCase())
-      );
+  methods: {
+    getQuestions() {
+      axios
+        .get("https://opentdb.com/api.php?amount=5")
+        .then((response) => this.questions.push(...response.data.results))
+        .catch((error) => console.log(error));
     },
+
+    getMoreQuestions() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
+
+        if (bottomOfWindow) {
+          this.getQuestions();
+        }
+      };
+    },
+  },
+
+  mounted() {
+    this.getQuestions();
+    this.getMoreQuestions();
   },
 };
 </script>
@@ -50,15 +56,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin: 30px;
-}
-
-input {
-  height: 2em;
-  width: 30em;
-  padding: 1px 7px;
-  font-size: 1em;
-  margin-bottom: 12px;
+  color: rgb(56, 114, 109);
+  margin-top: 60px;
 }
 </style>
